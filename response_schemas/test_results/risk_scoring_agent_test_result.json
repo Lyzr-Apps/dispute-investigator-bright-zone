@@ -1,0 +1,66 @@
+{
+  "agent_name": "Risk Scoring Agent",
+  "agent_id": "697ebb73066158e77fde6584",
+  "test_message": "Calculate fraud risk for this dispute: Customer account tenure 3 years, 2 previous disputes (both approved), regular deposit pattern $2500/month, transaction $45.99 at merchant 'SQ *JOES CAFE'.",
+  "expected_purpose": "assistant",
+  "timestamp": "2026-02-01T02:37:05.434062",
+  "is_valid_json": true,
+  "validation_errors": [],
+  "actual_response": {
+    "status": "success",
+    "result": {
+      "friendly_fraud_score": 0.18,
+      "risk_level": "low",
+      "account_analysis": {
+        "account_age_days": 1095,
+        "account_standing": "good",
+        "average_monthly_deposits": 2500,
+        "deposit_consistency": "regular"
+      },
+      "dispute_history": {
+        "total_disputes": 2,
+        "disputes_last_12_months": 0,
+        "win_rate": 1.0,
+        "patterns": [
+          "low historical dispute frequency",
+          "no recent velocity",
+          "all prior disputes resolved in favor of customer"
+        ]
+      },
+      "fraud_indicators": {
+        "in_fraud_database": false,
+        "fraud_alerts": [],
+        "velocity_flags": []
+      },
+      "risk_factors": [
+        {
+          "factor": "Account tenure over 3 years indicates stable relationship",
+          "severity": "low",
+          "impact_on_score": -0.05
+        },
+        {
+          "factor": "All previous disputes approved",
+          "severity": "medium",
+          "impact_on_score": 0.1
+        },
+        {
+          "factor": "Regular deposit pattern",
+          "severity": "low",
+          "impact_on_score": -0.02
+        },
+        {
+          "factor": "Low transaction amount at local merchant",
+          "severity": "low",
+          "impact_on_score": -0.05
+        }
+      ],
+      "recommendation": "approve",
+      "reasoning": "Account demonstrates long tenure, consistent deposit activity, and no fraud database matches. Low dispute frequency and lack of velocity or alerts suggest friendly fraud probability is low. Recommended to approve."
+    },
+    "metadata": {
+      "agent_name": "Risk Scoring Agent",
+      "timestamp": "2024-06-14T23:33:35Z"
+    }
+  },
+  "raw_response": "{\n  \"status\": \"success\",\n  \"result\": {\n    \"friendly_fraud_score\": 0.18,\n    \"risk_level\": \"low\",\n    \"account_analysis\": {\n      \"account_age_days\": 1095,\n      \"account_standing\": \"good\",\n      \"average_monthly_deposits\": 2500,\n      \"deposit_consistency\": \"regular\"\n    },\n    \"dispute_history\": {\n      \"total_disputes\": 2,\n      \"disputes_last_12_months\": 0,\n      \"win_rate\": 1.0,\n      \"patterns\": [\"low historical dispute frequency\", \"no recent velocity\", \"all prior disputes resolved in favor of customer\"]\n    },\n    \"fraud_indicators\": {\n      \"in_fraud_database\": false,\n      \"fraud_alerts\": [],\n      \"velocity_flags\": []\n    },\n    \"risk_factors\": [\n      {\n        \"factor\": \"Account tenure over 3 years indicates stable relationship\",\n        \"severity\": \"low\",\n        \"impact_on_score\": -0.05\n      },\n      {\n        \"factor\": \"All previous disputes approved\",\n        \"severity\": \"medium\",\n        \"impact_on_score\": 0.1\n      },\n      {\n        \"factor\": \"Regular deposit pattern\",\n        \"severity\": \"low\",\n        \"impact_on_score\": -0.02\n      },\n      {\n        \"factor\": \"Low transaction amount at local merchant\",\n        \"severity\": \"low\",\n        \"impact_on_score\": -0.05\n      }\n    ],\n    \"recommendation\": \"approve\",\n    \"reasoning\": \"Account demonstrates long tenure, consistent deposit activity, and no fraud database matches. Low dispute frequency and lack of velocity or alerts suggest friendly fraud probability is low. Recommended to approve.\"\n  },\n  \"metadata\": {\n    \"agent_name\": \"Risk Scoring Agent\",\n    \"timestamp\": \"2024-06-14T23:33:35Z\"\n  }\n}"
+}

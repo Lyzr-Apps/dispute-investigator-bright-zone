@@ -1,0 +1,147 @@
+{
+  "agent_name": "Resolution Agent",
+  "agent_id": "697ebbb1d36f070193f5dfa2",
+  "agent_purpose": "custom",
+  "description": "Executes dispute resolution actions including provisional credits and chargeback filing with Visa/Mastercard networks",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "action_taken": "string",
+      "transaction_details": {
+        "transaction_id": "string",
+        "amount": "number",
+        "merchant_name": "string",
+        "transaction_date": "null"
+      },
+      "resolution_details": {
+        "provisional_credit": {
+          "credited": "boolean",
+          "credit_amount": "number",
+          "credit_date": "string",
+          "reversal_date": "null"
+        },
+        "chargeback": {
+          "filed": "boolean",
+          "chargeback_id": "string",
+          "reason_code": "string",
+          "network": "string",
+          "filing_date": "string",
+          "expected_resolution_date": "string"
+        }
+      },
+      "tracking": {
+        "case_status": "string",
+        "next_review_date": "string",
+        "outcome_updates": [
+          "string"
+        ]
+      },
+      "customer_notification": {
+        "sent": "boolean",
+        "notification_type": "string",
+        "message_preview": "string"
+      },
+      "compliance_notes": "string"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "action_taken": "provisional_credit",
+      "transaction_details": {
+        "transaction_id": "DSP-2024-001234",
+        "amount": 45.99,
+        "merchant_name": "SQ *JOES CAFE",
+        "transaction_date": null
+      },
+      "resolution_details": {
+        "provisional_credit": {
+          "credited": true,
+          "credit_amount": 45.99,
+          "credit_date": "2024-06-11",
+          "reversal_date": null
+        },
+        "chargeback": {
+          "filed": true,
+          "chargeback_id": "CBK-DSP-2024-001234",
+          "reason_code": "4863",
+          "network": "Mastercard",
+          "filing_date": "2024-06-11",
+          "expected_resolution_date": "2024-07-11"
+        }
+      },
+      "tracking": {
+        "case_status": "pending",
+        "next_review_date": "2024-07-11",
+        "outcome_updates": [
+          "2024-06-11: Provisional credit of $45.99 issued to customer.",
+          "2024-06-11: Chargeback filed with Mastercard under reason code 4863 (Cardholder Does Not Recognize)."
+        ]
+      },
+      "customer_notification": {
+        "sent": true,
+        "notification_type": "email",
+        "message_preview": "We have issued a provisional credit of $45.99 for your unauthorized transaction dispute (SQ *JOES CAFE) and are processing your claim."
+      },
+      "compliance_notes": "Processed in accordance with Regulation E requirements for prompt resolution of unauthorized transaction disputes. Reason code 4863 selected as transaction was not recognized by customer."
+    },
+    "metadata": {
+      "agent_name": "Resolution Agent",
+      "timestamp": "2024-06-11T14:25:00Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-01T02:37:10.523679",
+  "test_message_used": "Provide a sample response",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "action_taken": "provisional_credit",
+      "transaction_details": {
+        "transaction_id": "DSP-2024-001234",
+        "amount": 45.99,
+        "merchant_name": "SQ *JOES CAFE",
+        "transaction_date": null
+      },
+      "resolution_details": {
+        "provisional_credit": {
+          "credited": true,
+          "credit_amount": 45.99,
+          "credit_date": "2024-06-11",
+          "reversal_date": null
+        },
+        "chargeback": {
+          "filed": true,
+          "chargeback_id": "CBK-DSP-2024-001234",
+          "reason_code": "4863",
+          "network": "Mastercard",
+          "filing_date": "2024-06-11",
+          "expected_resolution_date": "2024-07-11"
+        }
+      },
+      "tracking": {
+        "case_status": "pending",
+        "next_review_date": "2024-07-11",
+        "outcome_updates": [
+          "2024-06-11: Provisional credit of $45.99 issued to customer.",
+          "2024-06-11: Chargeback filed with Mastercard under reason code 4863 (Cardholder Does Not Recognize)."
+        ]
+      },
+      "customer_notification": {
+        "sent": true,
+        "notification_type": "email",
+        "message_preview": "We have issued a provisional credit of $45.99 for your unauthorized transaction dispute (SQ *JOES CAFE) and are processing your claim."
+      },
+      "compliance_notes": "Processed in accordance with Regulation E requirements for prompt resolution of unauthorized transaction disputes. Reason code 4863 selected as transaction was not recognized by customer."
+    },
+    "metadata": {
+      "agent_name": "Resolution Agent",
+      "timestamp": "2024-06-11T14:25:00Z"
+    }
+  },
+  "test_passed": true
+}

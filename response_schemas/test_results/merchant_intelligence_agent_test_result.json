@@ -1,0 +1,38 @@
+{
+  "agent_name": "Merchant Intelligence Agent",
+  "agent_id": "697ebb44066158e77fde657f",
+  "test_message": "Analyze this merchant descriptor: 'SQ *JOES' from transaction on 2024-01-15 14:30:00 at location 37.7749,-122.4194. Check for subscription patterns.",
+  "expected_purpose": "assistant",
+  "timestamp": "2026-02-01T02:36:56.242187",
+  "is_valid_json": true,
+  "validation_errors": [],
+  "actual_response": {
+    "status": "success",
+    "result": {
+      "decoded_merchant_name": "Joe's Coffee",
+      "merchant_category": "Restaurant",
+      "merchant_location": "San Francisco, CA",
+      "is_subscription": false,
+      "subscription_details": {
+        "frequency": "one-time",
+        "last_charge_date": "2024-01-15T14:30:00Z",
+        "charge_count": 1
+      },
+      "merchant_metadata": {
+        "known_aliases": [
+          "SQ *JOES",
+          "Joe's Coffee",
+          "Square Joe's"
+        ],
+        "website": null,
+        "phone": null
+      },
+      "confidence_score": 0.97
+    },
+    "metadata": {
+      "agent_name": "Merchant Intelligence Agent",
+      "timestamp": "2024-06-14T22:44:20Z"
+    }
+  },
+  "raw_response": "{\n  \"status\": \"success\",\n  \"result\": {\n    \"decoded_merchant_name\": \"Joe's Coffee\",\n    \"merchant_category\": \"Restaurant\",\n    \"merchant_location\": \"San Francisco, CA\",\n    \"is_subscription\": false,\n    \"subscription_details\": {\n      \"frequency\": \"one-time\",\n      \"last_charge_date\": \"2024-01-15T14:30:00Z\",\n      \"charge_count\": 1\n    },\n    \"merchant_metadata\": {\n      \"known_aliases\": [\"SQ *JOES\", \"Joe's Coffee\", \"Square Joe's\"],\n      \"website\": null,\n      \"phone\": null\n    },\n    \"confidence_score\": 0.97\n  },\n  \"metadata\": {\n    \"agent_name\": \"Merchant Intelligence Agent\",\n    \"timestamp\": \"2024-06-14T22:44:20Z\"\n  }\n}"
+}

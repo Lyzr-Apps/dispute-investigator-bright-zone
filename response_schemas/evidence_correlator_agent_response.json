@@ -1,0 +1,120 @@
+{
+  "agent_name": "Evidence Correlator Agent",
+  "agent_id": "697ebb5b066158e77fde6580",
+  "agent_purpose": "analyzer",
+  "description": "Correlates GPS, device, and family usage data to validate transaction authenticity",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "location_match": {
+        "user_was_present": "boolean",
+        "distance_from_transaction": "number",
+        "user_location_at_time": "string",
+        "transaction_location": "string",
+        "confidence": "number"
+      },
+      "device_match": {
+        "device_id_matches": "boolean",
+        "registered_device": "string",
+        "transaction_device_id": "string",
+        "is_known_device": "boolean"
+      },
+      "family_usage_analysis": {
+        "potential_family_member": "null",
+        "family_member_likelihood": "number",
+        "supporting_evidence": [
+          "string"
+        ]
+      },
+      "overall_evidence_score": "number",
+      "red_flags": [
+        "any"
+      ],
+      "supporting_factors": [
+        "string"
+      ]
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "location_match": {
+        "user_was_present": true,
+        "distance_from_transaction": 0.1,
+        "user_location_at_time": "San Francisco (37.7750,-122.4195)",
+        "transaction_location": "San Francisco (37.7749,-122.4194)",
+        "confidence": 0.98
+      },
+      "device_match": {
+        "device_id_matches": true,
+        "registered_device": "Pixel 6A (device_id: px6a-0012)",
+        "transaction_device_id": "px6a-0012",
+        "is_known_device": true
+      },
+      "family_usage_analysis": {
+        "potential_family_member": null,
+        "family_member_likelihood": 0.02,
+        "supporting_evidence": [
+          "Device and location match registered primary user.",
+          "No alternate family member GPS presence or device usage at transaction time."
+        ]
+      },
+      "overall_evidence_score": 0.97,
+      "red_flags": [],
+      "supporting_factors": [
+        "Strong real-time GPS proximity.",
+        "Device ID is a match with user profile.",
+        "No evidence of family member involvement."
+      ]
+    },
+    "metadata": {
+      "agent_name": "Evidence Correlator Agent",
+      "timestamp": "2024-06-13T12:00:00Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-01T02:37:00.963912",
+  "test_message_used": "Analyze this sample data for testing",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "location_match": {
+        "user_was_present": true,
+        "distance_from_transaction": 0.1,
+        "user_location_at_time": "San Francisco (37.7750,-122.4195)",
+        "transaction_location": "San Francisco (37.7749,-122.4194)",
+        "confidence": 0.98
+      },
+      "device_match": {
+        "device_id_matches": true,
+        "registered_device": "Pixel 6A (device_id: px6a-0012)",
+        "transaction_device_id": "px6a-0012",
+        "is_known_device": true
+      },
+      "family_usage_analysis": {
+        "potential_family_member": null,
+        "family_member_likelihood": 0.02,
+        "supporting_evidence": [
+          "Device and location match registered primary user.",
+          "No alternate family member GPS presence or device usage at transaction time."
+        ]
+      },
+      "overall_evidence_score": 0.97,
+      "red_flags": [],
+      "supporting_factors": [
+        "Strong real-time GPS proximity.",
+        "Device ID is a match with user profile.",
+        "No evidence of family member involvement."
+      ]
+    },
+    "metadata": {
+      "agent_name": "Evidence Correlator Agent",
+      "timestamp": "2024-06-13T12:00:00Z"
+    }
+  },
+  "test_passed": true
+}

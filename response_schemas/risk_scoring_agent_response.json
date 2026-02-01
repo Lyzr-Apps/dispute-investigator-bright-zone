@@ -1,0 +1,165 @@
+{
+  "agent_name": "Risk Scoring Agent",
+  "agent_id": "697ebb73066158e77fde6584",
+  "agent_purpose": "analyzer",
+  "description": "Calculates friendly fraud probability score based on account history and fraud databases",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "friendly_fraud_score": "number",
+      "risk_level": "string",
+      "account_analysis": {
+        "account_age_days": "number",
+        "account_standing": "string",
+        "average_monthly_deposits": "number",
+        "deposit_consistency": "string"
+      },
+      "dispute_history": {
+        "total_disputes": "number",
+        "disputes_last_12_months": "number",
+        "win_rate": "number",
+        "patterns": [
+          "string"
+        ]
+      },
+      "fraud_indicators": {
+        "in_fraud_database": "boolean",
+        "fraud_alerts": [
+          "any"
+        ],
+        "velocity_flags": [
+          "any"
+        ]
+      },
+      "risk_factors": [
+        {
+          "factor": "string",
+          "severity": "string",
+          "impact_on_score": "number"
+        }
+      ],
+      "recommendation": "string",
+      "reasoning": "string"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "friendly_fraud_score": 0.18,
+      "risk_level": "low",
+      "account_analysis": {
+        "account_age_days": 1095,
+        "account_standing": "good",
+        "average_monthly_deposits": 2500,
+        "deposit_consistency": "regular"
+      },
+      "dispute_history": {
+        "total_disputes": 2,
+        "disputes_last_12_months": 0,
+        "win_rate": 1.0,
+        "patterns": [
+          "low historical dispute frequency",
+          "no recent velocity",
+          "all prior disputes resolved in favor of customer"
+        ]
+      },
+      "fraud_indicators": {
+        "in_fraud_database": false,
+        "fraud_alerts": [],
+        "velocity_flags": []
+      },
+      "risk_factors": [
+        {
+          "factor": "Account tenure over 3 years indicates stable relationship",
+          "severity": "low",
+          "impact_on_score": -0.05
+        },
+        {
+          "factor": "All previous disputes approved",
+          "severity": "medium",
+          "impact_on_score": 0.1
+        },
+        {
+          "factor": "Regular deposit pattern",
+          "severity": "low",
+          "impact_on_score": -0.02
+        },
+        {
+          "factor": "Low transaction amount at local merchant",
+          "severity": "low",
+          "impact_on_score": -0.05
+        }
+      ],
+      "recommendation": "approve",
+      "reasoning": "Account demonstrates long tenure, consistent deposit activity, and no fraud database matches. Low dispute frequency and lack of velocity or alerts suggest friendly fraud probability is low. Recommended to approve."
+    },
+    "metadata": {
+      "agent_name": "Risk Scoring Agent",
+      "timestamp": "2024-06-14T23:33:35Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-01T02:37:05.434665",
+  "test_message_used": "Analyze this sample data for testing",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "friendly_fraud_score": 0.18,
+      "risk_level": "low",
+      "account_analysis": {
+        "account_age_days": 1095,
+        "account_standing": "good",
+        "average_monthly_deposits": 2500,
+        "deposit_consistency": "regular"
+      },
+      "dispute_history": {
+        "total_disputes": 2,
+        "disputes_last_12_months": 0,
+        "win_rate": 1.0,
+        "patterns": [
+          "low historical dispute frequency",
+          "no recent velocity",
+          "all prior disputes resolved in favor of customer"
+        ]
+      },
+      "fraud_indicators": {
+        "in_fraud_database": false,
+        "fraud_alerts": [],
+        "velocity_flags": []
+      },
+      "risk_factors": [
+        {
+          "factor": "Account tenure over 3 years indicates stable relationship",
+          "severity": "low",
+          "impact_on_score": -0.05
+        },
+        {
+          "factor": "All previous disputes approved",
+          "severity": "medium",
+          "impact_on_score": 0.1
+        },
+        {
+          "factor": "Regular deposit pattern",
+          "severity": "low",
+          "impact_on_score": -0.02
+        },
+        {
+          "factor": "Low transaction amount at local merchant",
+          "severity": "low",
+          "impact_on_score": -0.05
+        }
+      ],
+      "recommendation": "approve",
+      "reasoning": "Account demonstrates long tenure, consistent deposit activity, and no fraud database matches. Low dispute frequency and lack of velocity or alerts suggest friendly fraud probability is low. Recommended to approve."
+    },
+    "metadata": {
+      "agent_name": "Risk Scoring Agent",
+      "timestamp": "2024-06-14T23:33:35Z"
+    }
+  },
+  "test_passed": true
+}

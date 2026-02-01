@@ -1,0 +1,180 @@
+{
+  "workflow_name": "Varo Card Dispute Management System",
+  "description": "Complete dispute management system with empathetic intake, intelligent merchant decoding, evidence correlation, risk scoring, and automated resolution execution",
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "Start Dispute",
+      "nodeCategory": "input",
+      "position": { "x": 100, "y": 200 },
+      "data": {
+        "description": "User clicks 'Start Dispute' on Transaction Detail screen",
+        "trigger": "Button click on transaction"
+      }
+    },
+    {
+      "id": "case_manager_agent",
+      "type": "Agent",
+      "label": "Case Manager Agent",
+      "nodeCategory": "agent",
+      "position": { "x": 400, "y": 200 },
+      "data": {
+        "agent_id": "697ebb94d36f070193f5dfa1",
+        "agent_type": "Manager",
+        "description": "Conducts empathetic intake interview, coordinates sub-agents, aggregates evidence",
+        "provider": "OpenAI",
+        "model": "gpt-4.1",
+        "temperature": 0.3,
+        "managed_agents": [
+          "697ebb44066158e77fde657f",
+          "697ebb5b066158e77fde6580",
+          "697ebb73066158e77fde6584"
+        ]
+      }
+    },
+    {
+      "id": "merchant_intelligence_agent",
+      "type": "Agent",
+      "label": "Merchant Intelligence Agent",
+      "nodeCategory": "agent",
+      "position": { "x": 250, "y": 400 },
+      "data": {
+        "agent_id": "697ebb44066158e77fde657f",
+        "agent_type": "Sub-Agent",
+        "description": "Decodes cryptic merchant descriptors and identifies subscription patterns",
+        "provider": "OpenAI",
+        "model": "gpt-4.1",
+        "temperature": 0.2,
+        "parent_agent": "697ebb94d36f070193f5dfa1"
+      }
+    },
+    {
+      "id": "evidence_correlator_agent",
+      "type": "Agent",
+      "label": "Evidence Correlator Agent",
+      "nodeCategory": "agent",
+      "position": { "x": 450, "y": 400 },
+      "data": {
+        "agent_id": "697ebb5b066158e77fde6580",
+        "agent_type": "Sub-Agent",
+        "description": "Cross-references GPS, device IDs, and family usage patterns",
+        "provider": "OpenAI",
+        "model": "gpt-4.1",
+        "temperature": 0.2,
+        "parent_agent": "697ebb94d36f070193f5dfa1"
+      }
+    },
+    {
+      "id": "risk_scoring_agent",
+      "type": "Agent",
+      "label": "Risk Scoring Agent",
+      "nodeCategory": "agent",
+      "position": { "x": 650, "y": 400 },
+      "data": {
+        "agent_id": "697ebb73066158e77fde6584",
+        "agent_type": "Sub-Agent",
+        "description": "Calculates friendly fraud probability score",
+        "provider": "OpenAI",
+        "model": "gpt-4.1",
+        "temperature": 0.2,
+        "parent_agent": "697ebb94d36f070193f5dfa1"
+      }
+    },
+    {
+      "id": "resolution_agent",
+      "type": "Agent",
+      "label": "Resolution Agent",
+      "nodeCategory": "agent",
+      "position": { "x": 750, "y": 200 },
+      "data": {
+        "agent_id": "697ebbb1d36f070193f5dfa2",
+        "agent_type": "Independent",
+        "description": "Executes approved decisions: provisional credits and chargeback filing",
+        "provider": "OpenAI",
+        "model": "gpt-4.1",
+        "temperature": 0.2,
+        "trigger": "Process Decision button on Review Screen"
+      }
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "Case Summary & Decision",
+      "nodeCategory": "end",
+      "position": { "x": 1050, "y": 200 },
+      "data": {
+        "description": "Final case summary with fraud likelihood score and recommended action",
+        "outputs": [
+          "Case summary",
+          "Fraud likelihood score",
+          "Recommended action",
+          "Resolution status"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "input_node",
+      "target": "case_manager_agent",
+      "label": "Start Dispute",
+      "type": "default"
+    },
+    {
+      "source": "case_manager_agent",
+      "target": "merchant_intelligence_agent",
+      "label": "Decode Merchant",
+      "type": "delegation"
+    },
+    {
+      "source": "case_manager_agent",
+      "target": "evidence_correlator_agent",
+      "label": "Verify Evidence",
+      "type": "delegation"
+    },
+    {
+      "source": "case_manager_agent",
+      "target": "risk_scoring_agent",
+      "label": "Score Risk",
+      "type": "delegation"
+    },
+    {
+      "source": "merchant_intelligence_agent",
+      "target": "case_manager_agent",
+      "label": "Merchant Data",
+      "type": "return"
+    },
+    {
+      "source": "evidence_correlator_agent",
+      "target": "case_manager_agent",
+      "label": "Evidence Report",
+      "type": "return"
+    },
+    {
+      "source": "risk_scoring_agent",
+      "target": "case_manager_agent",
+      "label": "Risk Score",
+      "type": "return"
+    },
+    {
+      "source": "case_manager_agent",
+      "target": "output_node",
+      "label": "Case Summary",
+      "type": "default"
+    },
+    {
+      "source": "resolution_agent",
+      "target": "output_node",
+      "label": "Resolution Executed",
+      "type": "default"
+    }
+  ],
+  "metadata": {
+    "created_at": "2026-02-01T00:00:00Z",
+    "total_nodes": 7,
+    "total_edges": 9,
+    "agent_count": 5,
+    "version": "1.0.0"
+  }
+}

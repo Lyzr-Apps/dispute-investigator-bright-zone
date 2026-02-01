@@ -1,0 +1,88 @@
+{
+  "workflow_name": "Varo Card Dispute Management System",
+  "created_at": "2026-02-01T00:00:00Z",
+  "agents": [
+    {
+      "agent_id": "697ebb44066158e77fde657f",
+      "name": "Merchant Intelligence Agent",
+      "type": "Sub-Agent",
+      "status": "active",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.2,
+      "top_p": 1,
+      "description": "Decodes cryptic merchant descriptors, retrieves enhanced merchant data, identifies subscription patterns",
+      "response_schema_file": "response_schemas/merchant_intelligence_agent_response.json"
+    },
+    {
+      "agent_id": "697ebb5b066158e77fde6580",
+      "name": "Evidence Correlator Agent",
+      "type": "Sub-Agent",
+      "status": "active",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.2,
+      "top_p": 1,
+      "description": "Cross-references GPS location history against transaction time/location, matches device IDs, identifies family member usage patterns",
+      "response_schema_file": "response_schemas/evidence_correlator_agent_response.json"
+    },
+    {
+      "agent_id": "697ebb73066158e77fde6584",
+      "name": "Risk Scoring Agent",
+      "type": "Sub-Agent",
+      "status": "active",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.2,
+      "top_p": 1,
+      "description": "Analyzes account tenure, deposit patterns, prior dispute history, checks fraud databases, calculates friendly fraud probability score",
+      "response_schema_file": "response_schemas/risk_scoring_agent_response.json"
+    },
+    {
+      "agent_id": "697ebb94d36f070193f5dfa1",
+      "name": "Case Manager Agent",
+      "type": "Manager",
+      "status": "active",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.3,
+      "top_p": 1,
+      "description": "Conducts empathetic intake interview, decodes merchant names, challenges memory errors, coordinates investigation sub-agents, and aggregates evidence into actionable case summary with fraud likelihood score",
+      "response_schema_file": "response_schemas/case_manager_agent_response.json",
+      "managed_agents": [
+        "697ebb44066158e77fde657f",
+        "697ebb5b066158e77fde6580",
+        "697ebb73066158e77fde6584"
+      ]
+    },
+    {
+      "agent_id": "697ebbb1d36f070193f5dfa2",
+      "name": "Resolution Agent",
+      "type": "Independent",
+      "status": "active",
+      "provider": "OpenAI",
+      "model": "gpt-4.1",
+      "temperature": 0.2,
+      "top_p": 1,
+      "description": "Executes approved decisions: processes provisional credits, auto-formats and files chargebacks with correct Visa/Mastercard reason codes, tracks outcomes",
+      "response_schema_file": "response_schemas/resolution_agent_response.json"
+    }
+  ],
+  "workflow_structure": {
+    "input_node": "Start Dispute (Transaction Detail Screen)",
+    "manager": "Case Manager Agent (697ebb94d36f070193f5dfa1)",
+    "sub_agents": [
+      "Merchant Intelligence Agent (697ebb44066158e77fde657f)",
+      "Evidence Correlator Agent (697ebb5b066158e77fde6580)",
+      "Risk Scoring Agent (697ebb73066158e77fde6584)"
+    ],
+    "independent_agents": [
+      "Resolution Agent (697ebbb1d36f070193f5dfa2)"
+    ],
+    "output_node": "Case Summary & Decision"
+  },
+  "total_agents": 5,
+  "manager_count": 1,
+  "sub_agent_count": 3,
+  "independent_agent_count": 1
+}

@@ -1,0 +1,56 @@
+{
+  "agent_name": "Case Manager Agent",
+  "agent_id": "697ebb94d36f070193f5dfa1",
+  "test_message": "I see a charge for $45.99 from 'SQ *JOES CAFE' on January 15th at 2:30 PM. I don't remember going to any Joe's Cafe. Can you help me dispute this?",
+  "expected_purpose": "manager",
+  "timestamp": "2026-02-01T02:36:54.070324",
+  "is_valid_json": true,
+  "validation_errors": [],
+  "actual_response": {
+    "status": "success",
+    "result": {
+      "case_id": "SQJOESCAFE-2024-01-15-1459",
+      "cardholder_statement": "Cardholder does not recognize a $45.99 charge from 'SQ *JOES CAFE' on January 15th at 2:30 PM and does not remember visiting this merchant.",
+      "merchant_analysis": {
+        "decoded_name": "Joe's Cafe",
+        "is_subscription": false,
+        "confidence": 0.95
+      },
+      "evidence_summary": {
+        "location_verified": false,
+        "device_verified": false,
+        "family_usage_suspected": true,
+        "evidence_score": 0.33
+      },
+      "risk_assessment": {
+        "friendly_fraud_score": 0.68,
+        "risk_level": "high",
+        "recommendation": "manual_review"
+      },
+      "case_summary": "The cardholder disputes a $45.99 charge from 'SQ *JOES CAFE' on January 15th. Merchant analysis confirms this is a one-time restaurant charge, not a subscription, with high confidence in merchant identification. Location/device checks show the cardholder was not near the merchant at the time of the transaction, and the device used does not match the cardholder's registered device. Evidence suggests a likely authorized family member (Sophie Test-User) may have used the card, as her device was detected near the transaction location. The risk assessment flags high friendly fraud score based on recent dispute patterns, short account tenure, and low win rate, but with no fraud database entry. Manual review is recommended due to the combination of family member suspicion and high friendly fraud risk.",
+      "recommended_action": "escalate_to_specialist",
+      "key_findings": [
+        "Merchant is a local restaurant (Joe's Cafe), not a subscription",
+        "Cardholder was not at the location; device does not match",
+        "Evidence of possible family/authorized user involvement",
+        "High recent dispute frequency and low win rate",
+        "No entry in fraud database, but behavioral pattern suggests possible friendly fraud"
+      ],
+      "next_steps": [
+        "Contact cardholder to verify if Sophie Test-User had permission to use the card",
+        "Request transaction receipts or communication from merchant if available",
+        "Proceed with manual review by fraud specialist with full evidence package"
+      ]
+    },
+    "metadata": {
+      "agent_name": "Case Manager Agent",
+      "timestamp": "2024-06-20T14:35:10Z",
+      "sub_agents_consulted": [
+        "Merchant Intelligence Agent",
+        "Evidence Correlator Agent",
+        "Risk Scoring Agent"
+      ]
+    }
+  },
+  "raw_response": "{\n  \"status\": \"success\",\n  \"result\": {\n    \"case_id\": \"SQJOESCAFE-2024-01-15-1459\",\n    \"cardholder_statement\": \"Cardholder does not recognize a $45.99 charge from 'SQ *JOES CAFE' on January 15th at 2:30 PM and does not remember visiting this merchant.\",\n    \"merchant_analysis\": {\n      \"decoded_name\": \"Joe's Cafe\",\n      \"is_subscription\": false,\n      \"confidence\": 0.95\n    },\n    \"evidence_summary\": {\n      \"location_verified\": false,\n      \"device_verified\": false,\n      \"family_usage_suspected\": true,\n      \"evidence_score\": 0.33\n    },\n    \"risk_assessment\": {\n      \"friendly_fraud_score\": 0.68,\n      \"risk_level\": \"high\",\n      \"recommendation\": \"manual_review\"\n    },\n    \"case_summary\": \"The cardholder disputes a $45.99 charge from 'SQ *JOES CAFE' on January 15th. Merchant analysis confirms this is a one-time restaurant charge, not a subscription, with high confidence in merchant identification. Location/device checks show the cardholder was not near the merchant at the time of the transaction, and the device used does not match the cardholder's registered device. Evidence suggests a likely authorized family member (Sophie Test-User) may have used the card, as her device was detected near the transaction location. The risk assessment flags high friendly fraud score based on recent dispute patterns, short account tenure, and low win rate, but with no fraud database entry. Manual review is recommended due to the combination of family member suspicion and high friendly fraud risk.\",\n    \"recommended_action\": \"escalate_to_specialist\",\n    \"key_findings\": [\n      \"Merchant is a local restaurant (Joe's Cafe), not a subscription\",\n      \"Cardholder was not at the location; device does not match\",\n      \"Evidence of possible family/authorized user involvement\",\n      \"High recent dispute frequency and low win rate\",\n      \"No entry in fraud database, but behavioral pattern suggests possible friendly fraud\"\n    ],\n    \"next_steps\": [\n      \"Contact cardholder to verify if Sophie Test-User had permission to use the card\",\n      \"Request transaction receipts or communication from merchant if available\",\n      \"Proceed with manual review by fraud specialist with full evidence package\"\n    ]\n  },\n  \"metadata\": {\n    \"agent_name\": \"Case Manager Agent\",\n    \"timestamp\": \"2024-06-20T14:35:10Z\",\n    \"sub_agents_consulted\": [\n      \"Merchant Intelligence Agent\",\n      \"Evidence Correlator Agent\",\n      \"Risk Scoring Agent\"\n    ]\n  }\n}"
+}

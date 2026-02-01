@@ -1,0 +1,92 @@
+{
+  "agent_name": "Merchant Intelligence Agent",
+  "agent_id": "697ebb44066158e77fde657f",
+  "agent_purpose": "parser",
+  "description": "Decodes merchant descriptors and identifies subscription patterns from transaction data",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "decoded_merchant_name": "string",
+      "merchant_category": "string",
+      "merchant_location": "string",
+      "is_subscription": "boolean",
+      "subscription_details": {
+        "frequency": "string",
+        "last_charge_date": "string",
+        "charge_count": "number"
+      },
+      "merchant_metadata": {
+        "known_aliases": [
+          "string"
+        ],
+        "website": "null",
+        "phone": "null"
+      },
+      "confidence_score": "number"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "decoded_merchant_name": "Joe's Coffee",
+      "merchant_category": "Restaurant",
+      "merchant_location": "San Francisco, CA",
+      "is_subscription": false,
+      "subscription_details": {
+        "frequency": "one-time",
+        "last_charge_date": "2024-01-15T14:30:00Z",
+        "charge_count": 1
+      },
+      "merchant_metadata": {
+        "known_aliases": [
+          "SQ *JOES",
+          "Joe's Coffee",
+          "Square Joe's"
+        ],
+        "website": null,
+        "phone": null
+      },
+      "confidence_score": 0.97
+    },
+    "metadata": {
+      "agent_name": "Merchant Intelligence Agent",
+      "timestamp": "2024-06-14T22:44:20Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-02-01T02:36:56.242738",
+  "test_message_used": "Parse this sample text for testing",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "decoded_merchant_name": "Joe's Coffee",
+      "merchant_category": "Restaurant",
+      "merchant_location": "San Francisco, CA",
+      "is_subscription": false,
+      "subscription_details": {
+        "frequency": "one-time",
+        "last_charge_date": "2024-01-15T14:30:00Z",
+        "charge_count": 1
+      },
+      "merchant_metadata": {
+        "known_aliases": [
+          "SQ *JOES",
+          "Joe's Coffee",
+          "Square Joe's"
+        ],
+        "website": null,
+        "phone": null
+      },
+      "confidence_score": 0.97
+    },
+    "metadata": {
+      "agent_name": "Merchant Intelligence Agent",
+      "timestamp": "2024-06-14T22:44:20Z"
+    }
+  },
+  "test_passed": true
+}
