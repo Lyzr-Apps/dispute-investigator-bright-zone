@@ -821,7 +821,7 @@ function CaseDetailView({ caseId }: { caseId: string }) {
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">User Location:</span>
                   <span className="font-medium">
-                    {caseData.evidence_summary.location_verified ? 'Nearby' : 'Distant'}
+                    {caseData.evidence_summary?.location_verified ? 'Nearby' : 'Distant'}
                   </span>
                 </div>
               </div>
@@ -842,7 +842,7 @@ function CaseDetailView({ caseId }: { caseId: string }) {
                       <p className="text-xs text-gray-600">px6a-0012</p>
                     </div>
                   </div>
-                  {caseData.evidence_summary.device_verified ? (
+                  {caseData.evidence_summary?.device_verified ? (
                     <CheckCircle className="w-5 h-5 text-green-600" />
                   ) : (
                     <XCircle className="w-5 h-5 text-red-600" />
@@ -870,17 +870,17 @@ function CaseDetailView({ caseId }: { caseId: string }) {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Merchant Name:</span>
-                  <span className="font-medium">{caseData.merchant_analysis.decoded_name}</span>
+                  <span className="font-medium">{caseData.merchant_analysis?.decoded_name || 'Unknown'}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Is Subscription:</span>
-                  <Badge variant={caseData.merchant_analysis.is_subscription ? 'default' : 'outline'}>
-                    {caseData.merchant_analysis.is_subscription ? 'Yes' : 'No'}
+                  <Badge variant={caseData.merchant_analysis?.is_subscription ? 'default' : 'outline'}>
+                    {caseData.merchant_analysis?.is_subscription ? 'Yes' : 'No'}
                   </Badge>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Confidence:</span>
-                  <span className="font-medium">{Math.round(caseData.merchant_analysis.confidence * 100)}%</span>
+                  <span className="font-medium">{Math.round((caseData.merchant_analysis?.confidence || 0) * 100)}%</span>
                 </div>
               </div>
             </CardContent>
@@ -911,7 +911,7 @@ function CaseDetailView({ caseId }: { caseId: string }) {
                   icon={<AlertTriangle className="w-4 h-4" />}
                   title="Risk Assessment Complete"
                   time="Jan 15, 2024 2:47 PM"
-                  description={`${Math.round(caseData.risk_assessment.friendly_fraud_score * 100)}% friendly fraud risk detected`}
+                  description={`${Math.round((caseData.risk_assessment?.friendly_fraud_score || 0) * 100)}% friendly fraud risk detected`}
                 />
                 <TimelineItem
                   icon={<Eye className="w-4 h-4" />}
