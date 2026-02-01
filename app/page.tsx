@@ -293,9 +293,15 @@ function CustomerIntakeScreen({
       if (result.success && result.response.status === 'success') {
         const caseData = result.response.result as CaseManagerResult
 
+        const summaryText = caseData.case_summary
+          ? (caseData.case_summary.length > 200
+              ? caseData.case_summary.substring(0, 200) + '...'
+              : caseData.case_summary)
+          : 'I have analyzed the evidence and created a case for review.'
+
         setMessages(prev => [...prev, {
           role: 'agent',
-          text: `Thanks for that information. I've created case ${caseData.case_id} and analyzed the evidence. ${caseData.case_summary.substring(0, 200)}...`
+          text: `Thanks for that information. I've created case ${caseData.case_id || 'DSP-' + Date.now()} and analyzed the evidence. ${summaryText}`
         }])
 
         setTimeout(() => {
