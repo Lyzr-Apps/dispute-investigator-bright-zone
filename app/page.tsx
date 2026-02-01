@@ -647,18 +647,18 @@ function CaseDetailView({ caseId }: { caseId: string }) {
         <CardHeader>
           <div className="flex items-start justify-between">
             <div>
-              <CardTitle>Case {caseData.case_id}</CardTitle>
+              <CardTitle>Case {caseData.case_id || caseId}</CardTitle>
               <CardDescription className="mt-1">
-                {caseData.merchant_analysis.decoded_name} - ${MOCK_CASES[0].amount}
+                {caseData.merchant_analysis?.decoded_name || 'Unknown Merchant'} - ${MOCK_CASES[0]?.amount || '0.00'}
               </CardDescription>
             </div>
             <Badge className={cn(
               "text-white",
-              caseData.risk_assessment.risk_level === 'high' ? 'bg-red-500' :
-              caseData.risk_assessment.risk_level === 'medium' ? 'bg-amber-500' :
+              (caseData.risk_assessment?.risk_level === 'high' || caseData.risk_assessment?.friendly_fraud_score >= 0.7) ? 'bg-red-500' :
+              (caseData.risk_assessment?.risk_level === 'medium' || caseData.risk_assessment?.friendly_fraud_score >= 0.4) ? 'bg-amber-500' :
               'bg-green-500'
             )}>
-              {Math.round(caseData.risk_assessment.friendly_fraud_score * 100)}% Risk
+              {Math.round((caseData.risk_assessment?.friendly_fraud_score || 0) * 100)}% Risk
             </Badge>
           </div>
         </CardHeader>
@@ -682,7 +682,7 @@ function CaseDetailView({ caseId }: { caseId: string }) {
             <CardContent className="space-y-4">
               <div>
                 <p className="text-sm text-gray-600 mb-2">Case Summary</p>
-                <p className="text-sm">{caseData.case_summary}</p>
+                <p className="text-sm">{caseData.case_summary || 'No summary available'}</p>
               </div>
 
               <Separator />
@@ -691,12 +691,12 @@ function CaseDetailView({ caseId }: { caseId: string }) {
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-sm font-medium">AI Recommendation</p>
                   <Badge variant="outline" className="text-xs">
-                    {Math.round(caseData.merchant_analysis.confidence * 100)}% confidence
+                    {Math.round((caseData.merchant_analysis?.confidence || 0) * 100)}% confidence
                   </Badge>
                 </div>
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                   <p className="text-sm font-medium text-blue-900">
-                    {caseData.recommended_action.replace(/_/g, ' ').toUpperCase()}
+                    {(caseData.recommended_action || 'pending_review').replace(/_/g, ' ').toUpperCase()}
                   </p>
                 </div>
               </div>
@@ -706,7 +706,7 @@ function CaseDetailView({ caseId }: { caseId: string }) {
               <div>
                 <p className="text-sm font-medium mb-2">Key Findings</p>
                 <ul className="space-y-2">
-                  {caseData.key_findings.map((finding, idx) => (
+                  {(caseData.key_findings || []).map((finding, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-sm">
                       <AlertCircle className="w-4 h-4 mt-0.5 text-amber-600 flex-shrink-0" />
                       <span>{finding}</span>
@@ -719,41 +719,41 @@ function CaseDetailView({ caseId }: { caseId: string }) {
 
           {/* Evidence Summary Cards */}
           <div className="grid grid-cols-3 gap-3">
-            <Card className={caseData.evidence_summary.location_verified ? 'border-green-300' : 'border-red-300'}>
+            <Card className={caseData.evidence_summary?.location_verified ? 'border-green-300' : 'border-red-300'}>
               <CardContent className="p-4 text-center">
                 <MapPin className={cn(
                   "w-6 h-6 mx-auto mb-2",
-                  caseData.evidence_summary.location_verified ? 'text-green-600' : 'text-red-600'
+                  caseData.evidence_summary?.location_verified ? 'text-green-600' : 'text-red-600'
                 )} />
                 <p className="text-xs font-medium">Location</p>
                 <p className="text-xs text-gray-600">
-                  {caseData.evidence_summary.location_verified ? 'Verified' : 'Not Verified'}
+                  {caseData.evidence_summary?.location_verified ? 'Verified' : 'Not Verified'}
                 </p>
               </CardContent>
             </Card>
 
-            <Card className={caseData.evidence_summary.device_verified ? 'border-green-300' : 'border-red-300'}>
+            <Card className={caseData.evidence_summary?.device_verified ? 'border-green-300' : 'border-red-300'}>
               <CardContent className="p-4 text-center">
                 <Smartphone className={cn(
                   "w-6 h-6 mx-auto mb-2",
-                  caseData.evidence_summary.device_verified ? 'text-green-600' : 'text-red-600'
+                  caseData.evidence_summary?.device_verified ? 'text-green-600' : 'text-red-600'
                 )} />
                 <p className="text-xs font-medium">Device</p>
                 <p className="text-xs text-gray-600">
-                  {caseData.evidence_summary.device_verified ? 'Matched' : 'Not Matched'}
+                  {caseData.evidence_summary?.device_verified ? 'Matched' : 'Not Matched'}
                 </p>
               </CardContent>
             </Card>
 
-            <Card className={caseData.evidence_summary.family_usage_suspected ? 'border-amber-300' : 'border-gray-300'}>
+            <Card className={caseData.evidence_summary?.family_usage_suspected ? 'border-amber-300' : 'border-gray-300'}>
               <CardContent className="p-4 text-center">
                 <Users className={cn(
                   "w-6 h-6 mx-auto mb-2",
-                  caseData.evidence_summary.family_usage_suspected ? 'text-amber-600' : 'text-gray-400'
+                  caseData.evidence_summary?.family_usage_suspected ? 'text-amber-600' : 'text-gray-400'
                 )} />
                 <p className="text-xs font-medium">Family Usage</p>
                 <p className="text-xs text-gray-600">
-                  {caseData.evidence_summary.family_usage_suspected ? 'Suspected' : 'Not Detected'}
+                  {caseData.evidence_summary?.family_usage_suspected ? 'Suspected' : 'Not Detected'}
                 </p>
               </CardContent>
             </Card>
@@ -770,15 +770,15 @@ function CaseDetailView({ caseId }: { caseId: string }) {
                   <p className="text-sm font-medium">Friendly Fraud Probability</p>
                   <Badge className={cn(
                     "text-white",
-                    caseData.risk_assessment.friendly_fraud_score >= 0.7 ? 'bg-red-500' :
-                    caseData.risk_assessment.friendly_fraud_score >= 0.4 ? 'bg-amber-500' :
+                    (caseData.risk_assessment?.friendly_fraud_score || 0) >= 0.7 ? 'bg-red-500' :
+                    (caseData.risk_assessment?.friendly_fraud_score || 0) >= 0.4 ? 'bg-amber-500' :
                     'bg-green-500'
                   )}>
-                    {Math.round(caseData.risk_assessment.friendly_fraud_score * 100)}%
+                    {Math.round((caseData.risk_assessment?.friendly_fraud_score || 0) * 100)}%
                   </Badge>
                 </div>
                 <Progress
-                  value={caseData.risk_assessment.friendly_fraud_score * 100}
+                  value={(caseData.risk_assessment?.friendly_fraud_score || 0) * 100}
                   className="h-2"
                 />
               </div>
@@ -787,11 +787,11 @@ function CaseDetailView({ caseId }: { caseId: string }) {
                 <p className="text-xs font-medium text-gray-700 mb-1">Evidence Score</p>
                 <div className="flex items-center gap-2">
                   <Progress
-                    value={caseData.evidence_summary.evidence_score * 100}
+                    value={(caseData.evidence_summary?.evidence_score || 0) * 100}
                     className="h-2 flex-1"
                   />
                   <span className="text-sm font-medium">
-                    {Math.round(caseData.evidence_summary.evidence_score * 100)}%
+                    {Math.round((caseData.evidence_summary?.evidence_score || 0) * 100)}%
                   </span>
                 </div>
               </div>
@@ -966,7 +966,7 @@ function CaseDetailView({ caseId }: { caseId: string }) {
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
-                {caseData.next_steps.map((step, idx) => (
+                {(caseData.next_steps || []).map((step, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-sm">
                     <ArrowRight className="w-4 h-4 mt-0.5 text-blue-600 flex-shrink-0" />
                     <span>{step}</span>
